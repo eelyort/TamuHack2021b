@@ -7,6 +7,7 @@ import Options from "./Options/Options.js";
 import Leaderboards from "./Leaderboards/Leaderboards.js";
 
 import './App.css';
+<<<<<<< HEAD
 
 function App() {
     return (
@@ -26,6 +27,21 @@ function App() {
             </div>
         </div>
     );
+=======
+import Container from '@material-ui/core/Container';
+import Leaderboard from './Leaderboards/Leaderboards'
+import Options from './Options/Options'
+import Map from "./Map/Map.js"
+
+function App() {
+  return (
+    <div className="App">
+      <Map />
+      <Options></Options>
+      <Leaderboard></Leaderboard>
+    </div>
+  );
+>>>>>>> 1e4ccf1 (integrate map)
 }
 
 export default App;
