@@ -13,23 +13,23 @@ export default function Options(props) {
             <FormGroup aria-label="position">
                 <FormControlLabel
                     control={<Checkbox color="primary"
-                        checked={props.bathroom}
-                        onChange={(e) => props.setBathroom(e.target.checked)}
+                        checked={props.state.bathroom}
+                        onChange={(e) => props.setState({ ...props.state, bathroom: e.target.checked })}
                     />}
                     label="Bathroom"
                 />
                 <FormHelperText>Select to route you through a restroom on the way to your gate.</FormHelperText>
                 <FormControlLabel
                     control={<Checkbox color="primary"
-                        checked={props.food}
-                        onChange={(e) => props.setFood(e.target.checked)}
+                        checked={props.state.food}
+                        onChange={(e) => props.setState({ ...props.state,  food: e.target.checked })}
                     />}
                     label="Eat in"
                 />
                 <FormControlLabel
                     control={<Checkbox color="primary"
-                        checked={props.togo}
-                        onChange={(e) => props.setTogo(e.target.checked)}
+                        checked={props.state.togo}
+                        onChange={(e) => props.setState({ ...props.state,  togo: e.target.checked })}
                     />}
                     label="Food/Coffee To-go"
                 />

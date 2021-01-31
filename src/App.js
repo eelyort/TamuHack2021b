@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 import RectFill from "./CustomComponents/RectFill/RectFill";
 
@@ -15,14 +15,12 @@ import './App.css';
 const MapLoader = withScriptjs(Map);
 
 export default function App() {
-    const [routeMe, setRouteMe] = useState(() => null);
-    const [bathroom, setBathroom] = useState(true);
-    const [food, setFood] = useState(true);
-    const [togo, setTogo] = useState(true);
-
-    // if(routeMe) {
-    //
-    // }
+  const [routeMe, setRouteMe] = useState(() => null);
+  const [checkboxes, setCheckboxes] = useState({
+    bathroom: false,
+    food: false,
+    togo: false,
+  });
 
   return (
     <div className="App">
@@ -33,7 +31,7 @@ export default function App() {
       <div id={'map-div'}>
         <RectFill>
           <MapLoader
-              setRouteMe={setRouteMe}
+            setRouteMe={setRouteMe}
             googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOn4IKOryQBul-tiLGCvsXEzAJGNKtX9Q"
             loadingElement={<div style={{ height: `100%` }} />}
           />
@@ -41,17 +39,13 @@ export default function App() {
       </div>
       <div id={'options-div'}>
         <Options
-          bathroom={bathroom}
-          setBathroom={setBathroom}
-          food={food}
-          setFood={setFood}
-          togo={togo}
-          setTogo={setTogo}
+          state={checkboxes}
+          setState={setCheckboxes}
         />
       </div>
       <div id={'leaderboards-div'}>
         <Leaderboards />
       </div>
-    </div>
+    </div >
   );
 }
