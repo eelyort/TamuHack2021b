@@ -11,19 +11,23 @@ class Map extends Component {
       };
     
       componentDidMount() {
-        const directionsService = new google.maps.DirectionsService();
+        const directionsService = new window.google.maps.DirectionsService();
     
         const origin = { lat: 40.756795, lng: -73.954298 };
-        const destination = { lat: 41.756795, lng: -78.954298 };
+        const destination = { lat: 40.757895, lng: -73.954298 };
     
         directionsService.route(
           {
             origin: origin,
             destination: destination,
-            travelMode: google.maps.TravelMode.DRIVING
+            travelMode: window.google.maps.TravelMode.WALKING
           },
           (result, status) => {
-            if (status === google.maps.DirectionsStatus.OK) {
+            console.log("result:")
+            console.log(result)
+            console.log("status:")
+            console.log(result.routes[0].legs[0].duration.text)
+            if (status === window.google.maps.DirectionsStatus.OK) {
               this.setState({
                 directions: result
               });
