@@ -11,7 +11,7 @@ class Map extends Component {
       };
     
       componentDidMount() {
-        const directionsService = new google.maps.DirectionsService();
+        const directionsService = new window.google.maps.DirectionsService();
     
         const origin = { lat: 40.756795, lng: -73.954298 };
         const destination = { lat: 41.756795, lng: -78.954298 };
@@ -20,10 +20,10 @@ class Map extends Component {
           {
             origin: origin,
             destination: destination,
-            travelMode: google.maps.TravelMode.DRIVING
+            travelMode: window.google.maps.TravelMode.WALKING
           },
           (result, status) => {
-            if (status === google.maps.DirectionsStatus.OK) {
+            if (status === window.google.maps.DirectionsStatus.OK) {
               this.setState({
                 directions: result
               });
