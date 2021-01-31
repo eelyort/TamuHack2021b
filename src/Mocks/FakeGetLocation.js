@@ -21,13 +21,15 @@ export default class LocationMock {
             },
             {
                 lat: 41.97759762749232,
-                lng: -87.90717628823200,
+                lng: -87.907176288232,
             },
         ];
     }
 
     getNext() {
         this.index++;
-        return this.fakes[this.index % this.fakes.length];
+        console.log('mock returning');
+        console.log(this.fakes[this.index]);
+        return this.fakes[this.index];
     }
 };

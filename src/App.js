@@ -75,6 +75,7 @@ export default class App extends React.Component {
         // state
         this.state = {
             currentLocation: this.locMock.getNext(),
+            currentLocationChanged: true,
             flightState: {
                 info: null,
                 selecting: true,
@@ -90,7 +91,8 @@ export default class App extends React.Component {
             time: {
                 timeTillTakeoff: -1,
                 timeToGate: -1,
-            }
+            },
+            extraTime: 0,
         };
 
         this.setRouteMe = (val) => this.routeMe = val;
@@ -103,8 +105,8 @@ export default class App extends React.Component {
         this.update = () => {
             if(!this.state.flightState.selecting) {
                 this.setTimeTillTakeoff();
-                if(this.state.flightState.changed) {
-                    this.setFlightState((old) => ({ ...old, changed: false }));
+                if(this.state.flightState.changed || this.state.currentLocationChanged) {
+                    this.setState((old) => ({...old, currentLocationChanged: false, flightState: {...old.flightState, changed: false}}));
                     this.setTimeToGate();
                 }
                 this.numUpdates++;
@@ -117,7 +119,7 @@ export default class App extends React.Component {
 
         // location
         this.updateLocation = () => {
-            this.setState((oldState) => ({ ...oldState, currentLocation: this.locMock.getNext() }));
+            this.setState((oldState) => ({ ...oldState, currentLocation: this.locMock.getNext(), currentLocationChanged: true, }));
         };
 
         // for getting date / time
@@ -134,37 +136,9 @@ export default class App extends React.Component {
             this.routeMe(this.state.currentLocation, this.state.flightState.info.gate.location, (ans) => {
                 console.log(`routeMe ans: ${ans}`);
 
-                // add extra time for going to bathroom and stuff
-                const options = this.state.checkboxes;
-                const trueAns = ans + (options.bathroom ? timeToBathroom : 0) + (options.togo ? timeToFood : 0) + (options.food ? timeToEatIn : 0);
-
-                this.setState((oldState) => ({ ...oldState, time: { ...oldState.time, timeToGate: trueAns } }));
+                this.setState((oldState) => ({ ...oldState, time: { ...oldState.time, timeToGate: ans } }));
             });
         };
-
-        // TODO: delete testing
-        setTimeout(() => {
-            if(!this.state.flightState.selecting) {
-                console.log(this.state.flightState.info);
-            }
-            else {
-                setTimeout(() => {
-                    if(!this.state.flightState.selecting) {
-                        console.log(this.state.flightState.info);
-                    }
-                    else {
-                        setTimeout(() => {
-                            if(!this.state.flightState.selecting) {
-                                console.log(this.state.flightState.info);
-                            }
-                            else {
-
-                            }
-                        }, 5000);
-                    }
-                }, 5000);
-            }
-        }, 5000);
     }
     render() {
         // get values from state
@@ -172,9 +146,9 @@ export default class App extends React.Component {
 
         const content = (
             <div className={'content'}>
-                <Header {...time} getNextLoc={() => this.locMock.getNext()} />
+                <Header timeTillTakeoff={this.state.time.timeTillTakeoff} timeToGate={this.state.time.timeToGate + this.state.extraTime} getNextLoc={() => this.updateLocation()} />
                 <div id={'timer-div'}>
-                    <Timer {...time} caloriesPerTime={caloriesPerTime} />
+                    <Timer timeTillTakeoff={this.state.time.timeTillTakeoff} timeToGate={this.state.time.timeToGate + this.state.extraTime} caloriesPerTime={caloriesPerTime} />
                 </div>
                 <div id={'map-div'}>
                     <RectFill>
@@ -254,6 +228,12 @@ export default class App extends React.Component {
         if(!this.state.flightState.selecting && this.state.time.timeTillTakeoff === -1 && this.state.time.timeToGate === -1) {
             this.setTimeTillTakeoff();
             this.setTimeToGate();
+        }
+        // extra time
+        const options = this.state.checkboxes;
+        const extraTime = (options.bathroom ? timeToBathroom : 0) + (options.togo ? timeToFood : 0) + (options.food ? timeToEatIn : 0);
+        if(this.state.extraTime !== extraTime){
+            this.setState((old) => ({...old, extraTime: extraTime}));
         }
     }
 }

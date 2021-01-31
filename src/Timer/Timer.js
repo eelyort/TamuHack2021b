@@ -1,7 +1,6 @@
 import React from 'react';
 import { Accordion, AccordionSummary, AccordionDetails, Typography } from "@material-ui/core";
 import "./timer.css";
-import ExpandMoreIcon from "@material-ui/core/SvgIcon/SvgIcon";
 
 
 export default function Timer(props) {
@@ -9,14 +8,13 @@ export default function Timer(props) {
     return (
         <Accordion variant={'outlined'}>
             <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
             >
                 <div className="style">
                     <Typography variant={'body2'}>
                         Free time left:
                 </Typography>
                     <Typography variant={'h6'}>
-                        {Math.floor((timeTillTakeoff - timeToGate) / 60)} minutes {(timeTillTakeoff - timeToGate) % 60} seconds
+						{Math.floor((timeTillTakeoff - timeToGate) / 60 / 60)} hours {Math.floor((timeTillTakeoff - timeToGate) / 60 % 60)} minutes {(timeTillTakeoff - timeToGate) % 60} seconds
                 </Typography>
                 </div>
             </AccordionSummary>
@@ -26,7 +24,7 @@ export default function Timer(props) {
                         Plane takes off in:
                 </Typography>
                     <Typography variant={'h6'}>
-                        {Math.floor((timeToGate) / 60 / 60)} hours {Math.floor((timeToGate) / 60 % 60)} minutes {(timeToGate) % 60} seconds
+                        {Math.floor((timeTillTakeoff) / 60 / 60)} hours {Math.floor((timeTillTakeoff) / 60 % 60)} minutes {(timeTillTakeoff) % 60} seconds
                 </Typography>
                     <Typography variant={'body2'}>
                         <br></br>Travel time to gate:
@@ -38,7 +36,7 @@ export default function Timer(props) {
                         <br></br>Calories Burned:
                 </Typography>
                     <Typography variant={'h6'}>
-                        {Math.floor((timeToGate) / 60 / 60)} hours {Math.floor((timeToGate) / 60 % 60)} minutes {(timeToGate) % 60} seconds
+                        {Math.floor((timeToGate*caloriesPerTime) / 60 / 60)} hours {Math.floor((timeToGate*caloriesPerTime) / 60 % 60)} minutes {(timeToGate*caloriesPerTime) % 60} seconds
                 </Typography>
                 </div>
             </AccordionDetails>
