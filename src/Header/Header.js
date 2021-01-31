@@ -9,10 +9,18 @@ export default function Header (props) {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const { timeTillTakeoff, timeToGate, getNextLoc } = props;
 
+    const minLeft = Math.floor((timeTillTakeoff - timeToGate) / 60);
 
+    let colorClass = "";
+    if(minLeft <= 15) {
+        colorClass = " yellow";
+    }
+    if(minLeft <= 5) {
+        colorClass = " red";
+    }
 
     return (
-        <AppBar color={'primary'} className={'header-div'} position={'static'}>
+        <AppBar color={'primary'} className={'header-div' + colorClass} position={'static'}>
             <Toolbar>
                 <div>
                     {

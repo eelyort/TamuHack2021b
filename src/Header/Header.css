@@ -2,6 +2,12 @@
     display: flex;
     justify-content: space-between;
 }
+.header-div.yellow {
+    background-color: orange !important;
+}
+.header-div.red {
+    background-color: darkred !important;
+}
 .header-drawer-button {
     padding: 10px 20px !important;
     font-weight: 500 !important;
