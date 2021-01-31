@@ -21,10 +21,10 @@ export default function App() {
             </div>
             <div id={'map-div'}>
                 <RectFill>
-                <MapLoader
-                  googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOn4IKOryQBul-tiLGCvsXEzAJGNKtX9Q"
-                  loadingElement={<div style={{ height: `100%` }} />}
-                />
+                    <MapLoader
+                      googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOn4IKOryQBul-tiLGCvsXEzAJGNKtX9Q"
+                      loadingElement={<div style={{ height: `100%` }} />}
+                    />
                 </RectFill>
             </div>
             <div id={'options-div'}>
