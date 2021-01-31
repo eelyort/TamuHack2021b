@@ -66,7 +66,7 @@ class Map extends Component {
     
   componentDidMount() {
     // const directionsService = new window.google.maps.DirectionsService();
-    this.props.setRouteMe(() => ((val1, val2, val3) => this.routeMe(val1, val2, val3)));
+    this.props.setRouteMe((val1, val2, val3) => this.routeMe(val1, val2, val3));
 
     const origin = { lat: 40.756795, lng: -73.954298 };
     const destination = { lat: 40.857895, lng: -73.954298 };

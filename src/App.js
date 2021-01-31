@@ -52,90 +52,105 @@ async function validatePlaneNum(toValidate, setState) {
         });
 };
 
-export default function App() {
-  const [flightState, setFlightState] = useState(() => ({
-      info: null,
-      selecting: true,
-      validating: false,
-      queuedNum: "",
-  }));
-  const [locMock, setLocMock] = useState(() => new LocationMock());
-  const [routeMe, setRouteMe] = useState(() => null);
-  const [checkboxes, setCheckboxes] = useState({
-    bathroom: false,
-    food: false,
-    togo: false,
-  });
+export default class App extends React.Component {
+    constructor(props) {
+        super(props);
 
-  const content = (
-      <>
-          <Header />
-          <div id={'timer-div'}>
-              <Timer />
-          </div>
-          <div id={'map-div'}>
-              <RectFill>
-                  <MapLoader
-                      setRouteMe={setRouteMe}
-                      googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOn4IKOryQBul-tiLGCvsXEzAJGNKtX9Q"
-                      loadingElement={<div style={{ height: `100%` }} />}
-                  />
-              </RectFill>
-          </div>
-          <div id={'options-div'}>
-              <Options
-                  state={checkboxes}
-                  setState={setCheckboxes}
-              />
-          </div>
-          <div id={'leaderboards-div'}>
-              <Leaderboards />
-          </div>
-      </>
-  );
+        this.locMock = new LocationMock();
+        this.routeMe = null;
 
-  return (
-    <div className="App">
-        {(!flightState.selecting) ? content : (
+        this.setRouteMe = (val) => this.routeMe = val;
+        this.setFlightState = (val) => this.setState((oldState) => ({ ...oldState, flightState: val(oldState.flightState) }));
+        this.setCheckboxes = (val) => this.setState((oldState) => ({ ...oldState, checkboxes: val }));
+
+        this.state = {
+            flightState: {
+                info: null,
+                selecting: true,
+                validating: false,
+                queuedNum: "",
+            },
+            checkboxes: {
+                bathroom: false,
+                food: false,
+                togo: false,
+            },
+        }
+    }
+    render() {
+        // get values from state
+        const { flightState, checkboxes } = this.state;
+
+        const content = (
             <>
-                <div className={'blur-me'}>
-                    {content}
+                <Header />
+                <div id={'timer-div'}>
+                    <Timer />
                 </div>
-                <div className={'flight-number'}>
-                    <Textinput
-                        label={"Flight Number"}
-                        variant={"outlined"}
-                        tellChange={(e) => {
-                            if(flightState.validating) {
-                                setFlightState((oldS) => ({ ...oldS, queuedNum: e, }));
-                            }
-                            else {
-                                setFlightState((oldS) => ({ ...oldS, validating: true }));
-                                validatePlaneNum(e, setFlightState);
-                            }
-                        }}
+                <div id={'map-div'}>
+                    <RectFill>
+                        <MapLoader
+                            setRouteMe={this.setRouteMe}
+                            googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOn4IKOryQBul-tiLGCvsXEzAJGNKtX9Q"
+                            loadingElement={<div style={{ height: `100%` }} />}
+                        />
+                    </RectFill>
+                </div>
+                <div id={'options-div'}>
+                    <Options
+                        state={checkboxes}
+                        setState={this.setCheckboxes}
                     />
-                    <div className={'submit-button'}>
-                        <Button
-                            disabled={flightState.validating || !flightState.info}
-                            onClick={() => {
-                                if(flightState.validating || !flightState.info) {
-                                    // nothing
-                                }
-                                else {
-                                    setFlightState((old) => ({ ...old, selecting: false }));
-                                }
-                            }}
-                        >
-                            Submit
-                        </Button>
-                        {(flightState.validating || !flightState.info) ? (
-                            <CircularProgress variant={'indeterminate'} />
-                        ) : null}
-                    </div>
+                </div>
+                <div id={'leaderboards-div'}>
+                    <Leaderboards />
                 </div>
             </>
-        )}
-    </div>
-  );
+        );
+
+        return (
+            <div className="App">
+                {(!flightState.selecting) ? content : (
+                    <>
+                        <div className={'blur-me'}>
+                            {content}
+                        </div>
+                        <div className={'flight-number'}>
+                            <Textinput
+                                label={"Flight Number"}
+                                variant={"outlined"}
+                                tellChange={(e) => {
+                                    if(flightState.validating) {
+                                        this.setFlightState((oldS) => ({ ...oldS, queuedNum: e, }));
+                                    }
+                                    else {
+                                        this.setFlightState((oldS) => ({ ...oldS, validating: true }));
+                                        validatePlaneNum(e, this.setFlightState);
+                                    }
+                                }}
+                            />
+                            <div className={'submit-button'}>
+                                <Button
+                                    disabled={flightState.validating || !flightState.info}
+                                    onClick={() => {
+                                        if(flightState.validating || !flightState.info) {
+                                            // nothing
+                                        }
+                                        else {
+                                            this.setFlightState((old) => ({ ...old, selecting: false }));
+                                        }
+                                    }}
+                                >
+                                    Submit
+                                </Button>
+                                {(flightState.validating || !flightState.info) ? (
+                                    <CircularProgress variant={'indeterminate'} />
+                                ) : null}
+                            </div>
+                        </div>
+                    </>
+                )}
+            </div>
+        );
+    }
 }
