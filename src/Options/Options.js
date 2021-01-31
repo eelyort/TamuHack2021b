@@ -22,14 +22,14 @@ export default function Options(props) {
                 <FormControlLabel
                     control={<Checkbox color="primary"
                         checked={props.state.food}
-                        onChange={(e) => props.setState({ ...props.state,  food: e.target.checked })}
+                        onChange={(e) => props.setState({ ...props.state, food: e.target.checked })}
                     />}
                     label="Eat in"
                 />
                 <FormControlLabel
                     control={<Checkbox color="primary"
                         checked={props.state.togo}
-                        onChange={(e) => props.setState({ ...props.state,  togo: e.target.checked })}
+                        onChange={(e) => props.setState({ ...props.state, togo: e.target.checked })}
                     />}
                     label="Food/Coffee To-go"
                 />
