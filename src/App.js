@@ -165,7 +165,7 @@ export default class App extends React.Component {
         const { flightState, checkboxes, time } = this.state;
 
         const content = (
-            <>
+            <div className={'content'}>
                 <Header getNextLoc={() => this.locMock.getNext()} />
                 <div id={'timer-div'}>
                     <Timer {...time} caloriesPerTime={caloriesPerTime} />
@@ -188,7 +188,7 @@ export default class App extends React.Component {
                 <div id={'leaderboards-div'}>
                     <Leaderboards />
                 </div>
-            </>
+            </div>
         );
 
         return (

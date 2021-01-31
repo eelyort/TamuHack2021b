@@ -3,7 +3,7 @@
   width: 100vw;
 }
 
-.App > div {
+.App .content > div {
     margin: 5px 40px;
     padding: 15px 0;
 }
