@@ -12,12 +12,21 @@ export default function Timer (props) {
 				expandIcon={<ExpandMoreIcon />}
 			>
                 <div className = "style">
+<<<<<<< HEAD
 					<Typography variant={'body2'}>
 						Free time left:
 					</Typography>
 					<Typography variant={'h6'}>
 						{Math.floor((timeToGate) / 60 / 60)} hours Math.floor((timeToGate) / 60 % 60)} minutes {(timeToGate)  % 60} seconds
 					</Typography>
+=======
+				<Typography variant={'body2'}>
+					Free time left:
+				</Typography>
+                <Typography variant={'h6'}>
+					{Math.floor((timeTillTakeoff-timeToGate) / 60)} minutes {(timeTillTakeoff-timeToGate)  % 60} seconds
+				</Typography>
+>>>>>>> a1bbe0f (fix timer)
                 </div>
 			</AccordionSummary>
 			<AccordionDetails className = "style2">
