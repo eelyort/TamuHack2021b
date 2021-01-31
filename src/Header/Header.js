@@ -7,7 +7,7 @@ import './Header.css';
 
 export default function Header (props) {
     const [drawerOpen, setDrawerOpen] = useState(false);
-    const { timeTillTakeoff, timeToGate } = props;
+    const { timeTillTakeoff, timeToGate, getNextLoc } = props;
 
     return (
         <AppBar color={'primary'} className={'header-div'} position={'static'}>
@@ -40,6 +40,12 @@ export default function Header (props) {
                                 </MenuItem>
                                 <MenuItem className={'header-drawer-button'} href={'#leaderboards-div'} onClick={() => setDrawerOpen(false)}>
                                     Leaderboards
+                                </MenuItem>
+                                <MenuItem className={'header-drawer-button'} href={'#leaderboards-div'} onClick={() => {
+                                    getNextLoc();
+                                    setDrawerOpen(false);
+                                }}>
+                                    Get Next Current Location
                                 </MenuItem>
                             </Drawer>
                         </>

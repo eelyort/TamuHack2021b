@@ -22,7 +22,7 @@ const date = "2020-01-30";
 // ms between timer updates
 const msUpdateInterval = 1000;
 // timer updates between checking flight data again
-const updatesPerReFetch = 10;
+const updatesPerReFetch = 60;
 const caloriesPerTime = 13.2 / 60;
 
 async function validatePlaneNum(toValidate, setState) {
@@ -153,7 +153,7 @@ export default class App extends React.Component {
 
         const content = (
             <>
-                <Header />
+                <Header getNextLoc={() => this.locMock.getNext()} />
                 <div id={'timer-div'}>
                     <Timer {...time} caloriesPerTime={caloriesPerTime} />
                 </div>
