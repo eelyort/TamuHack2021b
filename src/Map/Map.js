@@ -29,9 +29,9 @@ class Map extends Component {
   //    routeMe({latitude: 0.1, long: 0.1}, {lat: 2, lng: -2})
   //      makes the map display the path from [0.1, 0.1] to [2, -2]
   routeMe(startLocation, endLocation, callback = (time) => null) {
-    // console.log("RouteMe called: start, end:");
-    // console.log(startLocation);
-    // console.log(endLocation);
+    console.log("RouteMe called: start, end:");
+    console.log(startLocation);
+    console.log(endLocation);
 
     const origin = {
       lat: startLocation.lat ?? startLocation.latitude ?? 0,
@@ -42,9 +42,9 @@ class Map extends Component {
       lng: endLocation.lng ?? endLocation.long ?? endLocation.longitude ?? 0,
     };
     const requestJSON = {
-      origin: origin,
-      destination: destination,
-      travelMode: 'WALKING',
+      origin,
+      destination,
+      travelMode: window.google.maps.TravelMode.WALKING,
     };
 
     this.directionsService.route({...requestJSON}, this.routeMeCallback(callback));
@@ -89,7 +89,7 @@ class Map extends Component {
     return (
       <div>
         <GoogleMapExample
-          containerElement={<div style={{ height: `500px`, width: "500px" }} />}
+          containerElement={<div style={{ height: "400px", width: "340px" }} />}
           mapElement={<div style={{ height: `100%` }} />}
         />
       </div>
