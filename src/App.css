@@ -51,13 +51,25 @@
     flex-direction: column;
 }
 .App .flight-number .submit-button {
-    display: flex;
-    flex-direction: row;
-    margin: 5px;
+    margin: 15px 0 0 0;
+
+    position: relative;
 }
-.App .flight-number .submit-button > div {
+.App .flight-number .submit-button > button {
+    /*position: absolute;*/
+    /*top: 50%;*/
+    /*transform: translateY(-50%);*/
+}
+.App .flight-number .submit-button .loading-div {
     padding: 5px;
     margin: 0 10px;
+
+    float: right;
+
+    opacity: 0;
+}
+.App .flight-number .submit-button .loading-div.show {
+    opacity: 1;
 }
 
 #map-div {

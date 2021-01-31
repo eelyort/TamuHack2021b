@@ -72,27 +72,6 @@ class Map extends Component {
     const destination = { lat: 40.857895, lng: -73.954298 };
 
     this.routeMe(origin, destination, (val) => console.log(`Default routeMe returning ${val} seconds`));
-
-    // directionsService.route(
-    //   {
-    //     origin: origin,
-    //     destination: destination,
-    //     travelMode: window.google.maps.TravelMode.WALKING
-    //   },
-    //   (result, status) => {
-    //     console.log("result:")
-    //     console.log(result)
-    //     console.log("status:")
-    //     console.log(result.routes[0].legs[0].duration.value)
-    //     if (status === window.google.maps.DirectionsStatus.OK) {
-    //       this.setState({
-    //         directions: result
-    //       });
-    //     } else {
-    //       console.error(`error fetching directions ${result}`);
-    //     }
-    //   }
-    // );
   }
 
     render() {

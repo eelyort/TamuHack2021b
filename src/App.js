@@ -9,7 +9,7 @@ import Options from "./Options/Options.js";
 import Leaderboards from "./Leaderboards/Leaderboards.js";
 import { withScriptjs } from "react-google-maps";
 
-import { Button, CircularProgress } from "@material-ui/core";
+import { Button, CircularProgress, Typography } from "@material-ui/core";
 import Textinput from "./Textinput";
 
 import './App.css';
@@ -17,16 +17,19 @@ import './App.css';
 import LocationMock from "./Mocks/FakeGetLocation";
 const MapLoader = withScriptjs(Map);
 
+// constants
 const date = "2020-01-30";
+// ms between timer updates
+const msUpdateInterval = 1000;
+// timer updates between checking flight data again
+const updatesPerReFetch = 10;
+const caloriesPerTime = 13.2 / 60;
 
 async function validatePlaneNum(toValidate, setState) {
     fetch(`https://tamuhack-2021.uc.r.appspot.com/flights?date=${date}`)
         .then(response => response.json())
         .then(data => {
-            console.log(`Trying to find number ${toValidate}`);
-            console.log(data);
             const correct = data.filter((val) => val.flightNumber === toValidate);
-            console.log(correct);
 
             // validate here
             let ans = correct.length ? correct[0] : null;
@@ -50,20 +53,19 @@ async function validatePlaneNum(toValidate, setState) {
                 }
             });
         });
-};
+}
 
 export default class App extends React.Component {
     constructor(props) {
         super(props);
 
         this.locMock = new LocationMock();
+        // call me to change map displayed values
         this.routeMe = null;
 
-        this.setRouteMe = (val) => this.routeMe = val;
-        this.setFlightState = (val) => this.setState((oldState) => ({ ...oldState, flightState: val(oldState.flightState) }));
-        this.setCheckboxes = (val) => this.setState((oldState) => ({ ...oldState, checkboxes: val }));
-
+        // state
         this.state = {
+            currentLocation: this.locMock.getNext(),
             flightState: {
                 info: null,
                 selecting: true,
@@ -75,17 +77,80 @@ export default class App extends React.Component {
                 food: false,
                 togo: false,
             },
-        }
+            time: {
+                timeTillTakeoff: -1,
+                timeToGate: -1,
+            }
+        };
+
+        this.setRouteMe = (val) => this.routeMe = val;
+        this.setFlightState = (val) => this.setState((oldState) => ({ ...oldState, flightState: val(oldState.flightState) }));
+        this.setCheckboxes = (val) => this.setState((oldState) => ({ ...oldState, checkboxes: val }));
+
+        // periodic update interval
+        this.updateInterval = null;
+        this.update = () => {
+            // TODO
+            if(!this.state.flightState.selecting) {
+                this.setTimeTillTakeoff();
+                this.setTimeToGate();
+            }
+        };
+
+        // location
+        this.updateLocation = () => {
+            this.setState((oldState) => ({ ...oldState, currentLocation: this.locMock.getNext() }));
+        };
+
+        // for getting date / time
+        this.getFlightDepartureTimeUnix = () => {
+            return Date.parse(this.state.flightState.info.departureTime);
+        };
+        // these both return nothing, setting the state
+        this.setTimeTillTakeoff = () => {
+            const ans = Math.floor((this.getFlightDepartureTimeUnix() - Date.now()) / 1000);
+            this.setState((oldState) => ({ ...oldState, time: { ...oldState.time, timeTillTakeoff: ans }, }));
+        };
+        // async
+        this.setTimeToGate = () => {
+            this.routeMe(this.state.currentLocation, this.state.flightState.info.gate.location, (ans) => {
+                this.setState((oldState) => ({ ...oldState, time: { ...oldState.time, timeToGate: ans } }));
+            });
+        };
+
+        // TODO: delete testing
+        setTimeout(() => {
+            if(!this.state.flightState.selecting) {
+                console.log(this.state.flightState.info);
+            }
+            else {
+                setTimeout(() => {
+                    if(!this.state.flightState.selecting) {
+                        console.log(this.state.flightState.info);
+                    }
+                    else {
+                        setTimeout(() => {
+                            if(!this.state.flightState.selecting) {
+                                console.log(this.state.flightState.info);
+                            }
+                            else {
+
+                            }
+                        }, 5000);
+                    }
+                }, 5000);
+            }
+        }, 5000);
     }
     render() {
         // get values from state
-        const { flightState, checkboxes } = this.state;
+        const { flightState, checkboxes, time } = this.state;
 
         const content = (
             <>
                 <Header />
                 <div id={'timer-div'}>
-                    <Timer />
+                    <Timer {...time} caloriesPerTime={caloriesPerTime} />
                 </div>
                 <div id={'map-div'}>
                     <RectFill>
@@ -140,17 +205,31 @@ export default class App extends React.Component {
                                             this.setFlightState((old) => ({ ...old, selecting: false }));
                                         }
                                     }}
+                                    variant={'outlined'}
                                 >
                                     Submit
                                 </Button>
-                                {(flightState.validating || !flightState.info) ? (
-                                    <CircularProgress variant={'indeterminate'} />
-                                ) : null}
+                                {/*<div className={'loading-div' + (flightState.validating ? ' show' : '')}>*/}
+                                {/*    <CircularProgress variant={'indeterminate'} />*/}
+                                {/*</div>*/}
                             </div>
                         </div>
                     </>
                 )}
             </div>
         );
+    }
+    componentDidMount() {
+        this.updateInterval = setInterval(() => this.update(), msUpdateInterval);
+    }
+    componentWillUnmount() {
+        clearInterval(this.updateInterval);
+    }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        // for setting initial time values
+        if(!this.state.flightState.selecting && this.state.time.timeTillTakeoff === -1 && this.state.time.timeToGate === -1) {
+            this.setTimeTillTakeoff();
+            this.setTimeToGate();
+        }
     }
 }

@@ -13,7 +13,7 @@ export default function Timer (props) {
 					Free time left:
 				</Typography>
                 <Typography variant={'h6'}>
-					{Math.floor((timeToGate-timeTillTakeoff) / 60)} minutes {(timeToGate-timeTillTakeoff)  % 60} seconds
+					{Math.floor((timeTillTakeoff-timeToGate) / 60)} minutes {(timeToGate-timeTillTakeoff)  % 60} seconds
 				</Typography>
                 </div>
 			</AccordionSummary>
