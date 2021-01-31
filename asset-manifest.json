@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/TamuHack2021b/static/css/main.fa49f09c.chunk.css",
+    "main.js": "/TamuHack2021b/static/js/main.a20786fd.chunk.js",
+    "main.js.map": "/TamuHack2021b/static/js/main.a20786fd.chunk.js.map",
+    "runtime-main.js": "/TamuHack2021b/static/js/runtime-main.ff6373b7.js",
+    "runtime-main.js.map": "/TamuHack2021b/static/js/runtime-main.ff6373b7.js.map",
+    "static/js/2.87f53cc1.chunk.js": "/TamuHack2021b/static/js/2.87f53cc1.chunk.js",
+    "static/js/2.87f53cc1.chunk.js.map": "/TamuHack2021b/static/js/2.87f53cc1.chunk.js.map",
+    "static/js/3.f6afc281.chunk.js": "/TamuHack2021b/static/js/3.f6afc281.chunk.js",
+    "static/js/3.f6afc281.chunk.js.map": "/TamuHack2021b/static/js/3.f6afc281.chunk.js.map",
+    "index.html": "/TamuHack2021b/index.html",
+    "static/css/main.fa49f09c.chunk.css.map": "/TamuHack2021b/static/css/main.fa49f09c.chunk.css.map",
+    "static/js/2.87f53cc1.chunk.js.LICENSE.txt": "/TamuHack2021b/static/js/2.87f53cc1.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ff6373b7.js",
+    "static/js/2.87f53cc1.chunk.js",
+    "static/css/main.fa49f09c.chunk.css",
+    "static/js/main.a20786fd.chunk.js"
+  ]
+}
