@@ -32,6 +32,7 @@ export default function Timer(props) {
                     <Typography variant={'h6'}>
                         {Math.floor((timeToGate) / 60 / 60)} hours {Math.floor((timeToGate) / 60 % 60)} minutes {(timeToGate) % 60} seconds
                 </Typography>
+                </div>
             </AccordionDetails>
         </Accordion>
     );
