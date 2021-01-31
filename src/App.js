@@ -8,6 +8,7 @@ import Map from "./Map/Map.js";
 import Options from "./Options/Options.js";
 import Leaderboards from "./Leaderboards/Leaderboards.js";
 import { withScriptjs } from "react-google-maps";
+import deepEqual from 'deep-equal';
 
 import { Button, CircularProgress, Typography } from "@material-ui/core";
 import Textinput from "./Textinput";
@@ -56,6 +57,7 @@ async function validatePlaneNum(toValidate, setState) {
                         selecting: oldState.selecting,
                         validating: false,
                         queuedNum: "",
+                        changed: !deepEqual(ans, oldState.info),
                     }
                 }
             });
@@ -78,6 +80,7 @@ export default class App extends React.Component {
                 selecting: true,
                 validating: false,
                 queuedNum: "",
+                changed: false,
             },
             checkboxes: {
                 bathroom: false,
@@ -100,7 +103,10 @@ export default class App extends React.Component {
         this.update = () => {
             if(!this.state.flightState.selecting) {
                 this.setTimeTillTakeoff();
-                this.setTimeToGate();
+                if(this.state.flightState.changed) {
+                    this.setFlightState((old) => ({ ...old, changed: false }));
+                    this.setTimeToGate();
+                }
                 this.numUpdates++;
                 if(this.numUpdates > updatesPerReFetch){
                     this.numUpdates = 0;
