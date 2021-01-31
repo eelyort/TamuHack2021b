@@ -42,9 +42,9 @@ class Map extends Component {
       lng: endLocation.lng ?? endLocation.long ?? endLocation.longitude ?? 0,
     };
     const requestJSON = {
-      origin,
-      destination,
-      travelMode: window.google.maps.TravelMode.WALKING,
+      origin: origin,
+      destination: destination,
+      travelMode: 'WALKING',
     };
 
     this.directionsService.route({...requestJSON}, this.routeMeCallback(callback));

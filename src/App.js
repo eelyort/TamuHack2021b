@@ -126,6 +126,8 @@ export default class App extends React.Component {
         // async
         this.setTimeToGate = () => {
             this.routeMe(this.state.currentLocation, this.state.flightState.info.gate.location, (ans) => {
+                console.log(`routeMe ans: ${ans}`);
+
                 // add extra time for going to bathroom and stuff
                 const options = this.state.checkboxes;
                 const trueAns = ans + (options.bathroom ? timeToBathroom : 0) + (options.togo ? timeToFood : 0) + (options.food ? timeToEatIn : 0);
