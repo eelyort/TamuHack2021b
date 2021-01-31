@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { MenuItem, IconButton, Toolbar, AppBar, Drawer } from '@material-ui/core';
-import { MenuIcon } from '@material-ui/icons';
+import MenuIcon from '@material-ui/icons/Menu';
 
 import './Header.css';
 
@@ -29,12 +29,18 @@ export default function Header (props) {
                                 open={drawerOpen}
                                 onClose={() => setDrawerOpen(false)}
                             >
-                                {/*<MenuItem className={'header-drawer-button'} href={'#'}>Home</MenuItem>*/}
-                                {/*<MenuItem className={'header-drawer-button'} component={Link} to={'/aboutMe'}>About Me</MenuItem>*/}
-                                {/*<MenuItem className={'header-drawer-button'} component={Link} to={'/qualifications'}>Qualifications</MenuItem>*/}
-                                {/*<MenuItem className={'header-drawer-button'} component={Link} to={'/portfolio'}>Portfolio</MenuItem>*/}
-                                {/*<MenuItem className={'header-drawer-button'} component={Link} to={'/service'}>Service</MenuItem>*/}
-                                {/*<MenuItem className={'header-drawer-button'} component={Link} to={'/contact'}>Contact</MenuItem>*/}
+                                <MenuItem className={'header-drawer-button'} href={'#timer-div'} onClick={() => setDrawerOpen(false)}>
+                                    Home
+                                </MenuItem>
+                                <MenuItem className={'header-drawer-button'} href={'#map-div'} onClick={() => setDrawerOpen(false)}>
+                                    Map
+                                </MenuItem>
+                                <MenuItem className={'header-drawer-button'} href={'#options-div'} onClick={() => setDrawerOpen(false)}>
+                                    Options
+                                </MenuItem>
+                                <MenuItem className={'header-drawer-button'} href={'#leaderboards-div'} onClick={() => setDrawerOpen(false)}>
+                                    Leaderboards
+                                </MenuItem>
                             </Drawer>
                         </>
                     }
