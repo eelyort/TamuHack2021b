@@ -18,17 +18,24 @@ import LocationMock from "./Mocks/FakeGetLocation";
 const MapLoader = withScriptjs(Map);
 
 // constants
-const date = "2020-01-30";
+const date = "2020-01-31";
 // ms between timer updates
 const msUpdateInterval = 1000;
 // timer updates between checking flight data again
 const updatesPerReFetch = 60;
 const caloriesPerTime = 13.2 / 60;
+const supportedGates = new Set(['H18', 'H12', 'G20', 'G5', 'E14', 'B2', 'C3', 'C32', 'B18', 'B7', 'B1', 'K1']);
+// time
+const timeToBathroom = 8 * 60;
+const timeToFood = 12 * 60;
+const timeToEatIn = 30 * 60;
 
 async function validatePlaneNum(toValidate, setState) {
     fetch(`https://tamuhack-2021.uc.r.appspot.com/flights?date=${date}`)
         .then(response => response.json())
         .then(data => {
+            data = data.filter((val) => supportedGates.has(val.gate.code));
+            console.log(data);
             const correct = data.filter((val) => val.flightNumber === toValidate);
 
             // validate here
@@ -119,7 +126,11 @@ export default class App extends React.Component {
         // async
         this.setTimeToGate = () => {
             this.routeMe(this.state.currentLocation, this.state.flightState.info.gate.location, (ans) => {
-                this.setState((oldState) => ({ ...oldState, time: { ...oldState.time, timeToGate: ans } }));
+                // add extra time for going to bathroom and stuff
+                const options = this.state.checkboxes;
+                const trueAns = ans + (options.bathroom ? timeToBathroom : 0) + (options.togo ? timeToFood : 0) + (options.food ? timeToEatIn : 0);
+
+                this.setState((oldState) => ({ ...oldState, time: { ...oldState.time, timeToGate: trueAns } }));
             });
         };
 
