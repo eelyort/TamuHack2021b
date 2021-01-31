@@ -89,11 +89,16 @@ export default class App extends React.Component {
 
         // periodic update interval
         this.updateInterval = null;
+        this.numUpdates = 0;
         this.update = () => {
-            // TODO
             if(!this.state.flightState.selecting) {
                 this.setTimeTillTakeoff();
                 this.setTimeToGate();
+                this.numUpdates++;
+                if(this.numUpdates > updatesPerReFetch){
+                    this.numUpdates = 0;
+                    validatePlaneNum(this.state.flightState.info.flightNumber);
+                }
             }
         };
 
