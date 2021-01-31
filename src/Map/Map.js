@@ -53,6 +53,7 @@ class Map extends Component {
   routeMeCallback(agentCallback) {
     return ((result, status) => {
       if (status === window.google.maps.DirectionsStatus.OK) {
+          console.log(result);
         this.setState({
           directions: result
         });
@@ -94,7 +95,7 @@ class Map extends Component {
     // );
   }
 
-  render() {
+    render() {
     const GoogleMapExample = withGoogleMap(props => (
       <GoogleMap
         defaultCenter={{ lat: 40.756795, lng: -73.954298 }}

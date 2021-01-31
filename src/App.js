@@ -11,18 +11,15 @@ import { withScriptjs } from "react-google-maps";
 
 import './App.css';
 
-// import LocationMock from "./Mocks/FakeGetLocation";
+import LocationMock from "./Mocks/FakeGetLocation";
 const MapLoader = withScriptjs(Map);
 
 export default function App() {
+    const [locMock, setLocMock] = useState(() => new LocationMock());
     const [routeMe, setRouteMe] = useState(() => null);
     const [bathroom, setBathroom] = useState(true);
     const [food, setFood] = useState(true);
     const [togo, setTogo] = useState(true);
-
-    // if(routeMe) {
-    //
-    // }
 
   return (
     <div className="App">
