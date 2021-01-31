@@ -19,7 +19,7 @@ import LocationMock from "./Mocks/FakeGetLocation";
 const MapLoader = withScriptjs(Map);
 
 // constants
-const date = "2020-01-31";
+const date = "2021-01-31";
 // ms between timer updates
 const msUpdateInterval = 1000;
 // timer updates between checking flight data again
@@ -122,11 +122,11 @@ export default class App extends React.Component {
 
         // for getting date / time
         this.getFlightDepartureTimeUnix = () => {
-            return Date.parse(this.state.flightState.info.departureTime);
+            return new Date(this.state.flightState.info.departureTime);
         };
         // these both return nothing, setting the state
         this.setTimeTillTakeoff = () => {
-            const ans = Math.floor((this.getFlightDepartureTimeUnix() - Date.now()) / 1000);
+            const ans = Math.floor((this.getFlightDepartureTimeUnix() - new Date()) / 1000);
             this.setState((oldState) => ({ ...oldState, time: { ...oldState.time, timeTillTakeoff: ans }, }));
         };
         // async
