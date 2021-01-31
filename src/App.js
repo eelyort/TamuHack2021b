@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
 import RectFill from "./CustomComponents/RectFill/RectFill";
 
@@ -10,13 +10,19 @@ import Leaderboards from "./Leaderboards/Leaderboards.js";
 import { withScriptjs } from "react-google-maps";
 
 import './App.css';
+
+// import LocationMock from "./Mocks/FakeGetLocation";
 const MapLoader = withScriptjs(Map);
 
-
 export default function App() {
-  const [bathroom, setBathroom] = useState(true);
-  const [food, setFood] = useState(true);
-  const [togo, setTogo] = useState(true);
+    const [routeMe, setRouteMe] = useState(() => null);
+    const [bathroom, setBathroom] = useState(true);
+    const [food, setFood] = useState(true);
+    const [togo, setTogo] = useState(true);
+
+    // if(routeMe) {
+    //
+    // }
 
   return (
     <div className="App">
@@ -27,13 +33,14 @@ export default function App() {
       <div id={'map-div'}>
         <RectFill>
           <MapLoader
+              setRouteMe={setRouteMe}
             googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOn4IKOryQBul-tiLGCvsXEzAJGNKtX9Q"
             loadingElement={<div style={{ height: `100%` }} />}
           />
         </RectFill>
       </div>
       <div id={'options-div'}>
-        <Options 
+        <Options
           bathroom={bathroom}
           setBathroom={setBathroom}
           food={food}

@@ -8,6 +8,7 @@ const mapStyles = {
 class Map extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       directions: null
     };
@@ -28,13 +29,17 @@ class Map extends Component {
   //    routeMe({latitude: 0.1, long: 0.1}, {lat: 2, lng: -2})
   //      makes the map display the path from [0.1, 0.1] to [2, -2]
   routeMe(startLocation, endLocation, callback = (time) => null) {
+    console.log("RouteMe called: start, end:");
+    console.log(startLocation);
+    console.log(endLocation);
+
     const origin = {
-      lat: startLocation.lat ?? startLocation.latitude,
-      lng: startLocation.lng ?? startLocation.long ?? startLocation.longitude,
+      lat: startLocation.lat ?? startLocation.latitude ?? 0,
+      lng: startLocation.lng ?? startLocation.long ?? startLocation.longitude ?? 0,
     };
     const destination = {
-      lat: endLocation.lat ?? endLocation.latitude,
-      lng: endLocation.lng ?? endLocation.long ?? endLocation.longitude,
+      lat: endLocation.lat ?? endLocation.latitude ?? 0,
+      lng: endLocation.lng ?? endLocation.long ?? endLocation.longitude ?? 0,
     };
     const requestJSON = {
       origin,
@@ -60,6 +65,7 @@ class Map extends Component {
     
   componentDidMount() {
     // const directionsService = new window.google.maps.DirectionsService();
+    this.props.setRouteMe(() => ((val1, val2, val3) => this.routeMe(val1, val2, val3)));
 
     const origin = { lat: 40.756795, lng: -73.954298 };
     const destination = { lat: 40.857895, lng: -73.954298 };
