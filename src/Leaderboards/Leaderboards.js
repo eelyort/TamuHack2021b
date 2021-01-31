@@ -58,7 +58,7 @@ export default function Leaderboard() {
     const classes = useStyles();
 
     return (
-        <Accordion>
+        <Accordion variant={'outlined'}>
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
