@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import RectFill from "./CustomComponents/RectFill/RectFill";
 
@@ -10,7 +10,7 @@ import Leaderboards from "./Leaderboards/Leaderboards.js";
 import { withScriptjs } from "react-google-maps";
 import deepEqual from 'deep-equal';
 
-import { Button, CircularProgress, Typography } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import Textinput from "./Textinput";
 
 import './App.css';
@@ -110,7 +110,7 @@ export default class App extends React.Component {
                 this.numUpdates++;
                 if(this.numUpdates > updatesPerReFetch){
                     this.numUpdates = 0;
-                    validatePlaneNum(this.state.flightState.info.flightNumber);
+                    validatePlaneNum(this.state.flightState.info.flightNumber, (val) => this.setFlightState(val));
                 }
             }
         };
@@ -172,7 +172,7 @@ export default class App extends React.Component {
 
         const content = (
             <div className={'content'}>
-                <Header getNextLoc={() => this.locMock.getNext()} />
+                <Header {...time} getNextLoc={() => this.locMock.getNext()} />
                 <div id={'timer-div'}>
                     <Timer {...time} caloriesPerTime={caloriesPerTime} />
                 </div>

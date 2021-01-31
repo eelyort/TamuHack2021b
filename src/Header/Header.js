@@ -9,6 +9,8 @@ export default function Header (props) {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const { timeTillTakeoff, timeToGate, getNextLoc } = props;
 
+
+
     return (
         <AppBar color={'primary'} className={'header-div'} position={'static'}>
             <Toolbar>
