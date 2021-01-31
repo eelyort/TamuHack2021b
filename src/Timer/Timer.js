@@ -31,13 +31,6 @@ export default function Timer(props) {
                 </Typography>
                     <Typography variant={'h6'}>
                         {Math.floor((timeToGate) / 60 / 60)} hours {Math.floor((timeToGate) / 60 % 60)} minutes {(timeToGate) % 60} seconds
-                </Typography>
-                    <Typography variant={'body2'}>
-                        <br></br>Calories Burned:
-                </Typography>
-                    <Typography variant={'h6'}>
-                        {Math.floor((timeToGate*caloriesPerTime) / 60 / 60)} hours {Math.floor((timeToGate*caloriesPerTime) / 60 % 60)} minutes {(timeToGate*caloriesPerTime) % 60} seconds
-                </Typography>
                 </div>
             </AccordionDetails>
         </Accordion>
