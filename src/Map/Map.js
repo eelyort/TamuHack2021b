@@ -26,7 +26,7 @@ class Map extends Component {
             console.log("result:")
             console.log(result)
             console.log("status:")
-            console.log(result.routes[0].legs[0].duration.text)
+            console.log(result.routes[0].legs[0].duration.value)
             if (status === window.google.maps.DirectionsStatus.OK) {
               this.setState({
                 directions: result
