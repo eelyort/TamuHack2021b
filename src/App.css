@@ -8,6 +8,58 @@
     padding: 15px 0;
 }
 
+.App .blur-me {
+    filter: blur(4px);
+    position: relative;
+
+    margin: 0;
+    padding: 0;
+}
+.App .blur-me:after {
+    margin: 0;
+    padding: 0;
+
+    content: "";
+
+    background-color: rgba(0, 0, 0, 0.4);
+
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.App .flight-number {
+    position: absolute;
+
+    left: 50%;
+    top: 40%;
+
+    transform: translateX(-50%) translateY(-50%);
+
+    width: 60vw;
+
+    border-radius: 10px;
+
+    background-color: white;
+
+    margin: 0;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+}
+.App .flight-number .submit-button {
+    display: flex;
+    flex-direction: row;
+    margin: 5px;
+}
+.App .flight-number .submit-button > div {
+    padding: 5px;
+    margin: 0 10px;
+}
+
 #map-div {
   height: 360px;
 }
