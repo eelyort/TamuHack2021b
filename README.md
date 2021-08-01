@@ -4,6 +4,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
+To see the project description: https://devpost.com/software/american-airlines-gate-finder
+
 In the project directory, you can run:
 
 ### `yarn start`
